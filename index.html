@@ -3,12 +3,10 @@
 
 <head>
 <meta charset="UTF-8">
-<title>Arrow Benelux Operations Tool</title>
+<title>Arrow Benelux Email Tool</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-
-<!-- Modern font -->
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 
 <style>
@@ -26,7 +24,26 @@ max-width:900px;
 margin:auto;
 }
 
-/* Premium title */
+/* PO INPUT */
+
+.po-input{
+margin-left:15px;
+padding:6px 10px;
+border-radius:6px;
+border:1px solid #ccc;
+font-family:Inter;
+font-size:14px;
+width:140px;
+}
+
+.section-header{
+display:flex;
+justify-content:space-between;
+align-items:center;
+margin-bottom:15px;
+}
+
+/* Title */
 
 h1{
 text-align:center;
@@ -43,10 +60,12 @@ color:#007BFF;
 display:flex;
 flex-wrap:wrap;
 justify-content:center;
+align-items:center;
+gap:6px;
 margin-bottom:20px;
 }
 
-/* Menu + Vendor buttons */
+/* Buttons */
 
 .menu-btn,
 .po-button{
@@ -65,15 +84,11 @@ transition:all .25s ease;
 box-shadow:0 3px 6px rgba(0,0,0,0.15);
 }
 
-/* menu buttons */
-
 .menu-btn{
 padding:12px 25px;
 margin:5px;
 font-size:16px;
 }
-
-/* hover animation */
 
 .menu-btn:hover,
 .po-button:hover{
@@ -81,8 +96,6 @@ transform:translateY(-4px) scale(1.02);
 box-shadow:0 10px 22px rgba(0,0,0,0.18);
 background:linear-gradient(135deg,#0056b3,#0088e6);
 }
-
-/* click effect */
 
 .menu-btn:active,
 .po-button:active{
@@ -107,7 +120,7 @@ color:#007BFF;
 font-weight:600;
 }
 
-/* Section animation */
+/* Animation */
 
 @keyframes fadeIn{
 from{
@@ -123,7 +136,6 @@ transform:translateY(0);
 /* Vendor buttons */
 
 .po-button{
-flex:1;
 min-width:200px;
 padding:12px 0;
 }
@@ -146,7 +158,7 @@ width:100%;
 }
 }
 
-/* Ripple effect */
+/* Ripple */
 
 .ripple{
 position:relative;
@@ -169,29 +181,89 @@ opacity:0;
 }
 }
 
+/* Toggle */
+
+.theme-toggle{
+display:flex;
+align-items:center;
+gap:6px;
+margin-left:6px;
+}
+
+.switch{
+position:relative;
+display:inline-block;
+width:46px;
+height:24px;
+}
+
+.switch input{
+opacity:0;
+width:0;
+height:0;
+}
+
+.slider{
+position:absolute;
+cursor:pointer;
+top:0;
+left:0;
+right:0;
+bottom:0;
+background:#cfd2d6;
+transition:.3s;
+border-radius:20px;
+}
+
+.slider:before{
+position:absolute;
+content:"";
+height:18px;
+width:18px;
+left:3px;
+bottom:3px;
+background:white;
+transition:.3s;
+border-radius:50%;
+}
+
+input:checked + .slider{
+background:#4ea2ff;
+}
+
+input:checked + .slider:before{
+transform:translateX(22px);
+}
+
+.moon-icon{
+font-size:20px;
+color:cool-grey;
+opacity:0.9;
+}
+
 /* DARK MODE */
 
 .darkmode{
-background:#1e1f24;
-color:white;
+background:#3a3d42;
+color:#f1f3f5;
 }
 
 .darkmode h1{
-color:white;
+color:#6ea8ff;
 }
 
 .darkmode .section{
-background:#2a2c31;
+background:#44474c;
 box-shadow:none;
 }
 
-.darkmode .po-button,
-.darkmode .menu-btn{
-background:linear-gradient(135deg,#2b6fff,#4ea2ff);
+.darkmode .menu-btn,
+.darkmode .po-button{
+background:linear-gradient(135deg,#3f7df4,#5a9cff);
 }
 
 .darkmode .section h2{
-color:#4ea2ff;
+color:#6ea8ff;
 }
 
 </style>
@@ -210,6 +282,10 @@ document.querySelectorAll('.section').forEach(s=>s.style.display='block');
 
 function toggleDarkMode(){
 document.body.classList.toggle("darkmode");
+}
+
+function getPO(id){
+return document.getElementById(id).value;
 }
 
 document.addEventListener('DOMContentLoaded',()=>{
@@ -252,60 +328,67 @@ showAll();
 
 <h1>Arrow Benelux Operations Tool</h1>
 
-<!-- Menu -->
-
 <div id="menu">
 
 <button class="menu-btn" onclick="showSection('sendpo')">
 Send PO
 </button>
 
-<button class="menu-btn" onclick="showSection('chase-delivery')">
-Chase Delivery
-</button>
-
 <button class="menu-btn" onclick="showSection('links')">
 Links
+</button>
+
+<button class="menu-btn" onclick="showSection('chase-delivery')">
+Chase Delivery
 </button>
 
 <button class="menu-btn" onclick="showAll()">
 All
 </button>
 
-<button class="menu-btn" onclick="toggleDarkMode()">
-🌙
-</button>
+<div class="theme-toggle">
+
+<label class="switch">
+<input type="checkbox" onclick="toggleDarkMode()">
+<span class="slider"></span>
+</label>
+
+<span class="material-icons moon-icon">dark_mode</span>
 
 </div>
 
+</div>
 <!-- Send PO Section -->
 <div class="section" id="sendpo">
+<div class="section-header">
 <h2>Send PO - Vendors</h2>
+
+<input 
+id="po-send"
+class="po-input"
+placeholder="Enter PO">
+</div>
 
 <!-- Better Collab / Bitdefender -->
 <div class="button-group">
 
-<!-- Better Collab Belux -->
 <a class="po-button"
-onclick="window.location.href='mailto:tmilenkova@cbtw.tech;be_timesheet@cbtw.tech;cvanderstichelen@cbtw.tech;santoine@cbtw.tech?cc=belux.licence.ecs.be@arrow.com;Yeranik.Tuken@arrow.com;Maha.ABBAZI@arrow.com&subject=PO&body=Hello%20Team,%0D%0A%0D%0AAttached%20you%20will%20find%20our%20purchase%20order%20with%20reference%20number%0D%0A%0D%0APlease%20refer%20to%20special%20instructions%20at%20the%20bottom%20of%20our%20PO.%0D%0A%0D%0ASend%20estimated%20delivery%20dates%20and%20confirmation%20of%20delivery%20to%20belux.licence.ecs.be@arrow.com%0D%0A%0D%0AKind%20regards,'">
+onclick="window.location.href='mailto:tmilenkova@cbtw.tech;be_timesheet@cbtw.tech;cvanderstichelen@cbtw.tech;santoine@cbtw.tech?cc=belux.licence.ecs.be@arrow.com;Yeranik.Tuken@arrow.com;Maha.ABBAZI@arrow.com&subject=PO%20'+getPO('po-send')+'&body=Hello%20Team,%0D%0A%0D%0AAttached%20you%20will%20find%20our%20purchase%20order%20with%20reference%20number%20'+getPO('po-send')+'%0D%0A%0D%0APlease%20refer%20to%20special%20instructions%20at%20the%20bottom%20of%20our%20PO.%0D%0A%0D%0ASend%20estimated%20delivery%20dates%20and%20confirmation%20of%20delivery%20to%20belux.licence.ecs.be@arrow.com%0D%0A%0D%0AKind%20regards,'">
 Better Collab Belux
 </a>
 
-<!-- Better Collab NL -->
 <a class="po-button"
-onclick="window.location.href='mailto:tmilenkova@cbtw.tech;be_timesheet@cbtw.tech;cvanderstichelen@cbtw.tech;santoine@cbtw.tech?cc=license.ecs.nl@arrow.com;Yeranik.Tuken@arrow.com;Maha.ABBAZI@arrow.com&subject=PO&body=Hello%20Team,%0D%0A%0D%0AAttached%20you%20will%20find%20our%20purchase%20order%20with%20reference%20number%0D%0A%0D%0APlease%20refer%20to%20special%20instructions%20at%20the%20bottom%20of%20our%20PO.%0D%0A%0D%0ASend%20estimated%20delivery%20dates%20and%20confirmation%20of%20delivery%20to%20license.ecs.nl@arrow.com%0D%0A%0D%0AKind%20regards,'">
+onclick="window.location.href='mailto:tmilenkova@cbtw.tech;be_timesheet@cbtw.tech;cvanderstichelen@cbtw.tech;santoine@cbtw.tech?cc=license.ecs.nl@arrow.com;Yeranik.Tuken@arrow.com;Maha.ABBAZI@arrow.com&subject=PO%20'+getPO('po-send')+'&body=Hello%20Team,%0D%0A%0D%0AAttached%20you%20will%20find%20our%20purchase%20order%20with%20reference%20number%20'+getPO('po-send')+'%0D%0A%0D%0APlease%20refer%20to%20special%20instructions%20at%20the%20bottom%20of%20our%20PO.%0D%0A%0D%0ASend%20estimated%20delivery%20dates%20and%20confirmation%20of%20delivery%20to%20license.ecs.nl@arrow.com%0D%0A%0D%0AKind%20regards,'">
 Better Collab NL
 </a>
 
-<!-- Bitdefender Belux -->
 <a class="po-button"
-onclick="window.location.href='mailto:Piotr.Kaniewski@arrow.com?cc=belux.licence.ecs.be@arrow.com;Maha.ABBAZI@arrow.com&subject=PO&body=Hello Piotr,%0D%0A%0D%0ACould you please place this order and let me know when it can be invoiced.%0D%0AThank you.%0D%0A%0D%0AKind regards,'">
+onclick="window.location.href='mailto:Piotr.Kaniewski@arrow.com?cc=belux.licence.ecs.be@arrow.com;Maha.ABBAZI@arrow.com&subject=PO%20'+getPO('po-send')+'&body=Hello%20Piotr,%0D%0A%0D%0ACould%20you%20please%20place%20this%20order%20and%20let%20me%20know%20when%20it%20can%20be%20invoiced.%0D%0AThank%20you.%0D%0A%0D%0AKind%20regards,'">
 Bitdefender Belux
 </a>
 
-<!-- Bitdefender NL -->
 <a class="po-button"
-onclick="window.location.href='mailto:Piotr.Kaniewski@arrow.com?cc=license.ecs.nl@arrow.com;Maha.ABBAZI@arrow.com&subject=PO&body=Hello Piotr,%0D%0A%0D%0ACould you please place this order and let me know when it can be invoiced.%0D%0AThank you.%0D%0A%0D%0AKind regards,'">
+onclick="window.location.href='mailto:Piotr.Kaniewski@arrow.com?cc=license.ecs.nl@arrow.com;Maha.ABBAZI@arrow.com&subject=PO%20'+getPO('po-send')+'&body=Hello%20Piotr,%0D%0A%0D%0ACould%20you%20please%20place%20this%20order%20and%20let%20me%20know%20when%20it%20can%20be%20invoiced.%0D%0AThank%20you.%0D%0A%0D%0AKind%20regards,'">
 Bitdefender NL
 </a>
 
@@ -314,19 +397,23 @@ Bitdefender NL
 <!-- Cloudian / Ctera / Druva -->
 <div class="button-group">
 
-<a class="po-button" onclick="window.location.href='mailto:orders@cloudian.com;hevensen@cloudian.com;daxler@cloudian.com?cc=belux.licence.ecs.be@arrow.com;Maha.ABBAZI@arrow.com&subject=PO&body=Hello Team,%0D%0A%0D%0AAttached you will find our purchase order with reference number%0D%0A%0D%0ASend estimated delivery dates and confirmation of delivery to belux.licence.ecs.be@arrow.com%0D%0A%0D%0AKind regards,'">
+<a class="po-button"
+onclick="window.location.href='mailto:orders@cloudian.com;hevensen@cloudian.com;daxler@cloudian.com?cc=belux.licence.ecs.be@arrow.com;Maha.ABBAZI@arrow.com&subject=PO%20'+getPO('po-send')+'&body=Hello%20Team,%0D%0A%0D%0AAttached%20you%20will%20find%20our%20purchase%20order%20with%20reference%20number%20'+getPO('po-send')+'%0D%0A%0D%0ASend%20estimated%20delivery%20dates%20and%20confirmation%20of%20delivery%20to%20belux.licence.ecs.be@arrow.com%0D%0A%0D%0AKind%20regards,'">
 Cloudian Belux
 </a>
 
-<a class="po-button" onclick="window.location.href='mailto:orders@cloudian.com;hevensen@cloudian.com;daxler@cloudian.com?cc=license.ecs.nl@arrow.com;Maha.ABBAZI@arrow.com&subject=PO&body=Hello Team,%0D%0A%0D%0AAttached you will find our purchase order with reference number%0D%0A%0D%0ASend estimated delivery dates and confirmation of delivery to license.ecs.nl@arrow.com%0D%0A%0D%0AKind regards,'">
+<a class="po-button"
+onclick="window.location.href='mailto:orders@cloudian.com;hevensen@cloudian.com;daxler@cloudian.com?cc=license.ecs.nl@arrow.com;Maha.ABBAZI@arrow.com&subject=PO%20'+getPO('po-send')+'&body=Hello%20Team,%0D%0A%0D%0AAttached%20you%20will%20find%20our%20purchase%20order%20with%20reference%20number%20'+getPO('po-send')+'%0D%0A%0D%0ASend%20estimated%20delivery%20dates%20and%20confirmation%20of%20delivery%20to%20license.ecs.nl@arrow.com%0D%0A%0D%0AKind%20regards,'">
 Cloudian NL
 </a>
 
-<a class="po-button" onclick="window.location.href='mailto:orders@ctera.com;Anne@ctera.com;katyas@ctera.com?cc=belux.licence.ecs.be@arrow.com;Maha.ABBAZI@arrow.com&subject=PO&body=Hello Team,%0D%0A%0D%0AAttached you will find our purchase order with reference number%0D%0A%0D%0ASend estimated delivery dates and confirmation of delivery to belux.licence.ecs.be@arrow.com%0D%0A%0D%0AKind regards,'">
+<a class="po-button"
+onclick="window.location.href='mailto:orders@ctera.com;Anne@ctera.com;katyas@ctera.com?cc=belux.licence.ecs.be@arrow.com;Maha.ABBAZI@arrow.com&subject=PO%20'+getPO('po-send')+'&body=Hello%20Team,%0D%0A%0D%0AAttached%20you%20will%20find%20our%20purchase%20order%20with%20reference%20number%20'+getPO('po-send')+'%0D%0A%0D%0ASend%20estimated%20delivery%20dates%20and%20confirmation%20of%20delivery%20to%20belux.licence.ecs.be@arrow.com%0D%0A%0D%0AKind%20regards,'">
 Ctera
 </a>
 
-<a class="po-button" onclick="window.location.href='mailto:thomas.dinsen@druva.com;mathieu.oberic@druva.com;gawaine.chisholm@druva.com?cc=license.ecs.nl@arrow.com;Maha.ABBAZI@arrow.com&subject=PO&body=Hello Team,%0D%0A%0D%0AAttached you will find our purchase order with reference number%0D%0A%0D%0ASend estimated delivery dates and confirmation of delivery to license.ecs.nl@arrow.com%0D%0A%0D%0AKind regards,'">
+<a class="po-button"
+onclick="window.location.href='mailto:thomas.dinsen@druva.com;mathieu.oberic@druva.com;gawaine.chisholm@druva.com?cc=license.ecs.nl@arrow.com;Maha.ABBAZI@arrow.com&subject=PO%20'+getPO('po-send')+'&body=Hello%20Team,%0D%0A%0D%0AAttached%20you%20will%20find%20our%20purchase%20order%20with%20reference%20number%20'+getPO('po-send')+'%0D%0A%0D%0ASend%20estimated%20delivery%20dates%20and%20confirmation%20of%20delivery%20to%20license.ecs.nl@arrow.com%0D%0A%0D%0AKind%20regards,'">
 Druva
 </a>
 
@@ -335,40 +422,49 @@ Druva
 <!-- EnterDB / Equinix / Everfox / F5 -->
 <div class="button-group">
 
-<a class="po-button" onclick="window.location.href='mailto:chris.thorpe@enterprisedb.com;gary.edwards@enterprisedb.com;aret.aprahamian@enterprisedb.com?cc=belux.licence.ecs.be@arrow.com;manon.demeyer@arrow.com;Maha.ABBAZI@arrow.com&subject=PO&body=Hello Team,%0D%0A%0D%0AAttached you will find our purchase order with reference number%0D%0A%0D%0ASend estimated delivery dates and confirmation of delivery to belux.licence.ecs.be@arrow.com%0D%0A%0D%0AKind regards,'">
+<a class="po-button"
+onclick="window.location.href='mailto:chris.thorpe@enterprisedb.com;gary.edwards@enterprisedb.com;aret.aprahamian@enterprisedb.com?cc=belux.licence.ecs.be@arrow.com;manon.demeyer@arrow.com;Maha.ABBAZI@arrow.com&subject=PO%20'+getPO('po-send')+'&body=Hello%20Team,%0D%0A%0D%0AAttached%20you%20will%20find%20our%20purchase%20order%20with%20reference%20number%20'+getPO('po-send')+'%0D%0A%0D%0ASend%20estimated%20delivery%20dates%20and%20confirmation%20of%20delivery%20to%20belux.licence.ecs.be@arrow.com%0D%0A%0D%0AKind%20regards,'">
 EnterDB
 </a>
 
-<a class="po-button" onclick="window.location.href='mailto:Aslihan.Kabadayi@eu.equinix.com;Marta.Trebicka@eu.equinix.com;Alex.Schaap@eu.equinix.com?cc=license.ecs.nl@arrow.com;elvira.kneefel@arrow.com;Liesbeth.Vrolijk@eu.equinix.com;COMsupport@equinix.com;Maha.ABBAZI@arrow.com&subject=PO&body=Hello Team,%0D%0A%0D%0AAttached you will find our purchase order with reference number%0D%0A%0D%0APlease refer to special instructions at the bottom of our PO.%0D%0A%0D%0ASend estimated delivery dates and confirmation of delivery to belux.licence.ecs.be@arrow.com%0D%0A%0D%0AKind regards,'">
+<a class="po-button"
+onclick="window.location.href='mailto:Aslihan.Kabadayi@eu.equinix.com;Marta.Trebicka@eu.equinix.com;Alex.Schaap@eu.equinix.com?cc=license.ecs.nl@arrow.com;elvira.kneefel@arrow.com;Liesbeth.Vrolijk@eu.equinix.com;COMsupport@equinix.com;Maha.ABBAZI@arrow.com&subject=PO%20'+getPO('po-send')+'&body=Hello%20Team,%0D%0A%0D%0AAttached%20you%20will%20find%20our%20purchase%20order%20with%20reference%20number%20'+getPO('po-send')+'%0D%0A%0D%0APlease%20refer%20to%20special%20instructions%20at%20the%20bottom%20of%20our%20PO.%0D%0A%0D%0ASend%20estimated%20delivery%20dates%20and%20confirmation%20of%20delivery%20to%20belux.licence.ecs.be@arrow.com%0D%0A%0D%0AKind%20regards,'">
 Equinix
 </a>
 
-<a class="po-button" onclick="window.location.href='mailto:globalop@everfox.com?cc=license.ecs.nl@arrow.com;lauren.marsden@everfox.com;brad.bleeck@everfox.com;Robbert.deBles@arrow.com;Maha.ABBAZI@arrow.com&subject=PO&body=Hello Team,%0D%0A%0D%0AAttached you will find our purchase order with reference number%0D%0A%0D%0APlease refer to special instructions at the bottom of our PO.%0D%0A%0D%0ASend estimated delivery dates and confirmation of delivery to belux.licence.ecs.be@arrow.com%0D%0A%0D%0AKind regards,'">
+<a class="po-button"
+onclick="window.location.href='mailto:globalop@everfox.com?cc=license.ecs.nl@arrow.com;lauren.marsden@everfox.com;brad.bleeck@everfox.com;Robbert.deBles@arrow.com;Maha.ABBAZI@arrow.com&subject=PO%20'+getPO('po-send')+'&body=Hello%20Team,%0D%0A%0D%0AAttached%20you%20will%20find%20our%20purchase%20order%20with%20reference%20number%20'+getPO('po-send')+'%0D%0A%0D%0APlease%20refer%20to%20special%20instructions%20at%20the%20bottom%20of%20our%20PO.%0D%0A%0D%0ASend%20estimated%20delivery%20dates%20and%20confirmation%20of%20delivery%20to%20belux.licence.ecs.be@arrow.com%0D%0A%0D%0AKind%20regards,'">
 Everfox
 </a>
 
-<a class="po-button" onclick="window.location.href='mailto:E.Orders@F5.com;emeadistiteam@f5.com;emearenewals@f5.com;m.darbyshire@f5.com;n.vanballegooij@f5.com?cc=license.ecs.nl@arrow.com;Maha.ABBAZI@arrow.com&subject=PO&body=Hello Team,%0D%0A%0D%0AAttached you will find our purchase order with reference number%0D%0A%0D%0ASend estimated delivery dates and confirmation of delivery to license.ecs.nl@arrow.com%0D%0A%0D%0AKind regards,'">
+<a class="po-button"
+onclick="window.location.href='mailto:E.Orders@F5.com;emeadistiteam@f5.com;emearenewals@f5.com;m.darbyshire@f5.com;n.vanballegooij@f5.com?cc=license.ecs.nl@arrow.com;Maha.ABBAZI@arrow.com&subject=PO%20'+getPO('po-send')+'&body=Hello%20Team,%0D%0A%0D%0AAttached%20you%20will%20find%20our%20purchase%20order%20with%20reference%20number%20'+getPO('po-send')+'%0D%0A%0D%0ASend%20estimated%20delivery%20dates%20and%20confirmation%20of%20delivery%20to%20license.ecs.nl@arrow.com%0D%0A%0D%0AKind%20regards,'">
 F5
 </a>
 
 </div>
 
-<!-- Mellanox / Microfocus / Nvidia New Sale -->
+
+<!-- Mellanox / Microfocus / Nvidia -->
 <div class="button-group">
 
-<a class="po-button" onclick="window.location.href='mailto:order.ecs.dk@arrow.com?cc=belux.licence.ecs.be@arrow.com;Maha.ABBAZI@arrow.com&subject=PO&body=Hello Team,%0D%0A%0D%0AAttached you will find our purchase order with reference number%0D%0A%0D%0ASend estimated delivery dates and confirmation of delivery to belux.licence.ecs.be@arrow.com%0D%0A%0D%0AKind regards,'">
+<a class="po-button"
+onclick="window.location.href='mailto:order.ecs.dk@arrow.com?cc=belux.licence.ecs.be@arrow.com;Maha.ABBAZI@arrow.com&subject=PO%20'+getPO('po-send')+'&body=Hello%20Team,%0D%0A%0D%0AAttached%20you%20will%20find%20our%20purchase%20order%20with%20reference%20number%20'+getPO('po-send')+'%0D%0A%0D%0ASend%20estimated%20delivery%20dates%20and%20confirmation%20of%20delivery%20to%20belux.licence.ecs.be@arrow.com%0D%0A%0D%0AKind%20regards,'">
 Mellanox
 </a>
 
-<a class="po-button" onclick="window.location.href='mailto:olivierfloris.vangorkom@microfocus.com?cc=license.ecs.nl@arrow.com;Maha.ABBAZI@arrow.com&subject=PO&body=Hello Team,%0D%0A%0D%0AAttached you will find our purchase order with reference number%0D%0A%0D%0APlease refer to special instructions at the bottom of our PO.%0D%0A%0D%0ASend estimated delivery dates and confirmation of delivery to license.ecs.nl@arrow.com%0D%0A%0D%0AKind regards,'">
+<a class="po-button"
+onclick="window.location.href='mailto:olivierfloris.vangorkom@microfocus.com?cc=license.ecs.nl@arrow.com;Maha.ABBAZI@arrow.com&subject=PO%20'+getPO('po-send')+'&body=Hello%20Team,%0D%0A%0D%0AAttached%20you%20will%20find%20our%20purchase%20order%20with%20reference%20number%20'+getPO('po-send')+'%0D%0A%0D%0APlease%20refer%20to%20special%20instructions%20at%20the%20bottom%20of%20our%20PO.%0D%0A%0D%0ASend%20estimated%20delivery%20dates%20and%20confirmation%20of%20delivery%20to%20license.ecs.nl@arrow.com%0D%0A%0D%0AKind%20regards,'">
 Microfocus
 </a>
 
-<a class="po-button" onclick="window.location.href='mailto:POUS@nvidia.com;SalesOps-emeai@nvidia.com?cc=belux.licence.ecs.be@arrow.com;Maha.ABBAZI@arrow.com&subject=PO&body=Hello Team,%0D%0A%0D%0AAttached you will find our purchase order with reference number%0D%0A%0D%0APlease refer to special instructions at the bottom of our PO.%0D%0A%0D%0ASend estimated delivery dates and confirmation of delivery to belux.licence.ecs.be@arrow.com%0D%0A%0D%0AKind regards,'">
+<a class="po-button"
+onclick="window.location.href='mailto:POUS@nvidia.com;SalesOps-emeai@nvidia.com?cc=belux.licence.ecs.be@arrow.com;Maha.ABBAZI@arrow.com&subject=PO%20'+getPO('po-send')+'&body=Hello%20Team,%0D%0A%0D%0AAttached%20you%20will%20find%20our%20purchase%20order%20with%20reference%20number%20'+getPO('po-send')+'%0D%0A%0D%0APlease%20refer%20to%20special%20instructions%20at%20the%20bottom%20of%20our%20PO.%0D%0A%0D%0ASend%20estimated%20delivery%20dates%20and%20confirmation%20of%20delivery%20to%20belux.licence.ecs.be@arrow.com%0D%0A%0D%0AKind%20regards,'">
 Nvidia New Sale Belux
 </a>
 
-<a class="po-button" onclick="window.location.href='mailto:POUS@nvidia.com;SalesOps-emeai@nvidia.com?cc=license.ecs.nl@arrow.com;Maha.ABBAZI@arrow.com&subject=PO&body=Hello Team,%0D%0A%0D%0AAttached you will find our purchase order with reference number%0D%0A%0D%0APlease refer to special instructions at the bottom of our PO.%0D%0A%0D%0ASend estimated delivery dates and confirmation of delivery to license.ecs.nl@arrow.com%0D%0A%0D%0AKind regards,'">
+<a class="po-button"
+onclick="window.location.href='mailto:POUS@nvidia.com;SalesOps-emeai@nvidia.com?cc=license.ecs.nl@arrow.com;Maha.ABBAZI@arrow.com&subject=PO%20'+getPO('po-send')+'&body=Hello%20Team,%0D%0A%0D%0AAttached%20you%20will%20find%20our%20purchase%20order%20with%20reference%20number%20'+getPO('po-send')+'%0D%0A%0D%0APlease%20refer%20to%20special%20instructions%20at%20the%20bottom%20of%20our%20PO.%0D%0A%0D%0ASend%20estimated%20delivery%20dates%20and%20confirmation%20of%20delivery%20to%20license.ecs.nl@arrow.com%0D%0A%0D%0AKind%20regards,'">
 Nvidia New Sale NL
 </a>
 
@@ -377,40 +473,49 @@ Nvidia New Sale NL
 <!-- Prolion / Scality / Nvidia Renewal -->
 <div class="button-group">
 
-<a class="po-button" onclick="window.location.href='mailto:mark.slagmolen@prolion.com?cc=belux.licence.ecs.be@arrow.com;global-orders@prolion.com;Maha.ABBAZI@arrow.com;manon.demeyer@arrow.com&subject=PO&body=Hello Team,%0D%0A%0D%0AAttached you will find our purchase order with reference number%0D%0A%0D%0APlease refer to special instructions at the bottom of our PO.%0D%0A%0D%0ASend estimated delivery dates and confirmation of delivery to belux.licence.ecs.be@arrow.com%0D%0A%0D%0AKind regards,'">
+<a class="po-button"
+onclick="window.location.href='mailto:mark.slagmolen@prolion.com?cc=belux.licence.ecs.be@arrow.com;global-orders@prolion.com;Maha.ABBAZI@arrow.com;manon.demeyer@arrow.com&subject=PO%20'+getPO('po-send')+'&body=Hello%20Team,%0D%0A%0D%0AAttached%20you%20will%20find%20our%20purchase%20order%20with%20reference%20number%20'+getPO('po-send')+'%0D%0A%0D%0APlease%20refer%20to%20special%20instructions%20at%20the%20bottom%20of%20our%20PO.%0D%0A%0D%0ASend%20estimated%20delivery%20dates%20and%20confirmation%20of%20delivery%20to%20belux.licence.ecs.be@arrow.com%0D%0A%0D%0AKind%20regards,'">
 Prolion
 </a>
 
-<a class="po-button" onclick="window.location.href='mailto:order@scality.com;mike.elbinni@scality.com?cc=belux.licence.ecs.be@arrow.com;Maha.ABBAZI@arrow.com&subject=PO&body=Hello Team,%0D%0A%0D%0AAttached you will find our purchase order with reference number%0D%0A%0D%0ASend estimated delivery dates and confirmation of delivery to belux.licence.ecs.be@arrow.com%0D%0A%0D%0AKind regards,'">
+<a class="po-button"
+onclick="window.location.href='mailto:order@scality.com;mike.elbinni@scality.com?cc=belux.licence.ecs.be@arrow.com;Maha.ABBAZI@arrow.com&subject=PO%20'+getPO('po-send')+'&body=Hello%20Team,%0D%0A%0D%0AAttached%20you%20will%20find%20our%20purchase%20order%20with%20reference%20number%20'+getPO('po-send')+'%0D%0A%0D%0ASend%20estimated%20delivery%20dates%20and%20confirmation%20of%20delivery%20to%20belux.licence.ecs.be@arrow.com%0D%0A%0D%0AKind%20regards,'">
 Scality
 </a>
 
-<a class="po-button" onclick="window.location.href='mailto:renewalsales@nvidia.com;SalesOps-emeai@nvidia.com?cc=belux.licence.ecs.be@arrow.com;POUS@nvidia.com;Maha.ABBAZI@arrow.com&subject=PO&body=Hello Team,%0D%0A%0D%0AAttached you will find our purchase order with reference number%0D%0A%0D%0APlease refer to special instructions at the bottom of our PO.%0D%0A%0D%0ASend estimated delivery dates and confirmation of delivery to belux.licence.ecs.be@arrow.com%0D%0A%0D%0AKind regards,'">
+<a class="po-button"
+onclick="window.location.href='mailto:renewalsales@nvidia.com;SalesOps-emeai@nvidia.com?cc=belux.licence.ecs.be@arrow.com;POUS@nvidia.com;Maha.ABBAZI@arrow.com&subject=PO%20'+getPO('po-send')+'&body=Hello%20Team,%0D%0A%0D%0AAttached%20you%20will%20find%20our%20purchase%20order%20with%20reference%20number%20'+getPO('po-send')+'%0D%0A%0D%0APlease%20refer%20to%20special%20instructions%20at%20the%20bottom%20of%20our%20PO.%0D%0A%0D%0ASend%20estimated%20delivery%20dates%20and%20confirmation%20of%20delivery%20to%20belux.licence.ecs.be@arrow.com%0D%0A%0D%0AKind%20regards,'">
 Nvidia Renewal Belux
 </a>
 
-<a class="po-button" onclick="window.location.href='mailto:renewalsales@nvidia.com;SalesOps-emeai@nvidia.com?cc=license.ecs.nl@arrow.com;POUS@nvidia.com;Maha.ABBAZI@arrow.com&subject=PO&body=Hello Team,%0D%0A%0D%0AAttached you will find our purchase order with reference number%0D%0A%0D%0APlease refer to special instructions at the bottom of our PO.%0D%0A%0D%0ASend estimated delivery dates and confirmation of delivery to license.ecs.nl@arrow.com%0D%0A%0D%0AKind regards,'">
+<a class="po-button"
+onclick="window.location.href='mailto:renewalsales@nvidia.com;SalesOps-emeai@nvidia.com?cc=license.ecs.nl@arrow.com;POUS@nvidia.com;Maha.ABBAZI@arrow.com&subject=PO%20'+getPO('po-send')+'&body=Hello%20Team,%0D%0A%0D%0AAttached%20you%20will%20find%20our%20purchase%20order%20with%20reference%20number%20'+getPO('po-send')+'%0D%0A%0D%0APlease%20refer%20to%20special%20instructions%20at%20the%20bottom%20of%20our%20PO.%0D%0A%0D%0ASend%20estimated%20delivery%20dates%20and%20confirmation%20of%20delivery%20to%20license.ecs.nl@arrow.com%0D%0A%0D%0AKind%20regards,'">
 Nvidia Renewal NL
 </a>
 
 </div>
 
+
 <!-- Quest / Rackmount / Radware -->
 <div class="button-group">
 
-<a class="po-button" onclick="window.location.href='mailto:emeaquestorders@quest.com;JP.Valgepea@quest.com?cc=belux.licence.ecs.be@arrow.com;Maha.ABBAZI@arrow.com&subject=PO&body=Hello Team,%0D%0A%0D%0AAttached you will find our purchase order with reference number%0D%0A%0D%0ASend estimated delivery dates and confirmation of delivery to belux.licence.ecs.be@arrow.com%0D%0A%0D%0AKind regards,'">
+<a class="po-button"
+onclick="window.location.href='mailto:emeaquestorders@quest.com;JP.Valgepea@quest.com?cc=belux.licence.ecs.be@arrow.com;Maha.ABBAZI@arrow.com&subject=PO%20'+getPO('po-send')+'&body=Hello%20Team,%0D%0A%0D%0AAttached%20you%20will%20find%20our%20purchase%20order%20with%20reference%20number%20'+getPO('po-send')+'%0D%0A%0D%0ASend%20estimated%20delivery%20dates%20and%20confirmation%20of%20delivery%20to%20belux.licence.ecs.be@arrow.com%0D%0A%0D%0AKind%20regards,'">
 Quest Software Belux
 </a>
 
-<a class="po-button" onclick="window.location.href='mailto:emeaquestorders@quest.com;JP.Valgepea@quest.com?cc=license.ecs.nl@arrow.com;Maha.ABBAZI@arrow.com&subject=PO&body=Hello Team,%0D%0A%0D%0AAttached you will find our purchase order with reference number%0D%0A%0D%0ASend estimated delivery dates and confirmation of delivery to license.ecs.nl@arrow.com%0D%0A%0D%0AKind regards,'">
+<a class="po-button"
+onclick="window.location.href='mailto:emeaquestorders@quest.com;JP.Valgepea@quest.com?cc=license.ecs.nl@arrow.com;Maha.ABBAZI@arrow.com&subject=PO%20'+getPO('po-send')+'&body=Hello%20Team,%0D%0A%0D%0AAttached%20you%20will%20find%20our%20purchase%20order%20with%20reference%20number%20'+getPO('po-send')+'%0D%0A%0D%0ASend%20estimated%20delivery%20dates%20and%20confirmation%20of%20delivery%20to%20license.ecs.nl@arrow.com%0D%0A%0D%0AKind%20regards,'">
 Quest Software NL
 </a>
 
-<a class="po-button" onclick="window.location.href='mailto:orders@rackmount.it?cc=license.ecs.nl@arrow.com;Maha.ABBAZI@arrow.com&subject=PO&body=Hello Team,%0D%0A%0D%0AAttached you will find our purchase order with reference number%0D%0A%0D%0ASend estimated delivery dates and confirmation of delivery to license.ecs.nl@arrow.com%0D%0A%0D%0AKind regards,'">
+<a class="po-button"
+onclick="window.location.href='mailto:orders@rackmount.it?cc=license.ecs.nl@arrow.com;Maha.ABBAZI@arrow.com&subject=PO%20'+getPO('po-send')+'&body=Hello%20Team,%0D%0A%0D%0AAttached%20you%20will%20find%20our%20purchase%20order%20with%20reference%20number%20'+getPO('po-send')+'%0D%0A%0D%0ASend%20estimated%20delivery%20dates%20and%20confirmation%20of%20delivery%20to%20license.ecs.nl@arrow.com%0D%0A%0D%0AKind%20regards,'">
 Rackmount
 </a>
 
-<a class="po-button" onclick="window.location.href='mailto:ordersbenelux@radware.com;olivierd@radware.com?cc=belux.licence.ecs.be@arrow.com;liseg@radware.com;katty.debevere@arrow.com;Maha.ABBAZI@arrow.com&subject=PO&body=Hello Team,%0D%0A%0D%0AAttached you will find our purchase order with reference number%0D%0A%0D%0ASend estimated delivery dates and confirmation of delivery to belux.licence.ecs.be@arrow.com%0D%0A%0D%0AKind regards,'">
+<a class="po-button"
+onclick="window.location.href='mailto:ordersbenelux@radware.com;olivierd@radware.com?cc=belux.licence.ecs.be@arrow.com;liseg@radware.com;katty.debevere@arrow.com;Maha.ABBAZI@arrow.com&subject=PO%20'+getPO('po-send')+'&body=Hello%20Team,%0D%0A%0D%0AAttached%20you%20will%20find%20our%20purchase%20order%20with%20reference%20number%20'+getPO('po-send')+'%0D%0A%0D%0ASend%20estimated%20delivery%20dates%20and%20confirmation%20of%20delivery%20to%20belux.licence.ecs.be@arrow.com%0D%0A%0D%0AKind%20regards,'">
 Radware
 </a>
 
@@ -419,40 +524,49 @@ Radware
 <!-- Rubrik / Riverbed -->
 <div class="button-group">
 
-<a class="po-button" onclick="window.location.href='mailto:porubrik@rubrik.com;sophia.rogers@rubrik.com?cc=belux.licence.ecs.be@arrow.com;Maha.ABBAZI@arrow.com&subject=PO&body=Hello Team,%0D%0A%0D%0AAttached you will find our purchase order with reference number%0D%0A%0D%0APlease refer to special instructions at the bottom of our PO.%0D%0A%0D%0ASend estimated delivery dates and confirmation of delivery to belux.licence.ecs.be@arrow.com%0D%0A%0D%0AKind regards,'">
+<a class="po-button"
+onclick="window.location.href='mailto:porubrik@rubrik.com;sophia.rogers@rubrik.com?cc=belux.licence.ecs.be@arrow.com;Maha.ABBAZI@arrow.com&subject=PO%20'+getPO('po-send')+'&body=Hello%20Team,%0D%0A%0D%0AAttached%20you%20will%20find%20our%20purchase%20order%20with%20reference%20number%20'+getPO('po-send')+'%0D%0A%0D%0APlease%20refer%20to%20special%20instructions%20at%20the%20bottom%20of%20our%20PO.%0D%0A%0D%0ASend%20estimated%20delivery%20dates%20and%20confirmation%20of%20delivery%20to%20belux.licence.ecs.be@arrow.com%0D%0A%0D%0AKind%20regards,'">
 Rubrik Belux
 </a>
 
-<a class="po-button" onclick="window.location.href='mailto:porubrik@rubrik.com;sophia.rogers@rubrik.com?cc=license.ecs.nl@arrow.com;Maha.ABBAZI@arrow.com&subject=PO&body=Hello Team,%0D%0A%0D%0AAttached you will find our purchase order with reference number%0D%0A%0D%0APlease refer to special instructions at the bottom of our PO.%0D%0A%0D%0ASend estimated delivery dates and confirmation of delivery to license.ecs.nl@arrow.com%0D%0A%0D%0AKind regards,'">
+<a class="po-button"
+onclick="window.location.href='mailto:porubrik@rubrik.com;sophia.rogers@rubrik.com?cc=license.ecs.nl@arrow.com;Maha.ABBAZI@arrow.com&subject=PO%20'+getPO('po-send')+'&body=Hello%20Team,%0D%0A%0D%0AAttached%20you%20will%20find%20our%20purchase%20order%20with%20reference%20number%20'+getPO('po-send')+'%0D%0A%0D%0APlease%20refer%20to%20special%20instructions%20at%20the%20bottom%20of%20our%20PO.%0D%0A%0D%0ASend%20estimated%20delivery%20dates%20and%20confirmation%20of%20delivery%20to%20license.ecs.nl@arrow.com%0D%0A%0D%0AKind%20regards,'">
 Rubrik NL
 </a>
 
-<a class="po-button" onclick="window.location.href='mailto:renewals-emea@riverbed.com;Michelle.Strange@riverbed.com?cc=belux.licence.ecs.be@arrow.com;Sandro.deBoer@arrow.com;Maha.ABBAZI@arrow.com&subject=PO&body=Hello Team,%0D%0A%0D%0AAttached you will find our purchase order with reference number%0D%0A%0D%0ASend estimated delivery dates and confirmation of delivery to belux.licence.ecs.be@arrow.com%0D%0A%0D%0AKind regards,'">
+<a class="po-button"
+onclick="window.location.href='mailto:renewals-emea@riverbed.com;Michelle.Strange@riverbed.com?cc=belux.licence.ecs.be@arrow.com;Sandro.deBoer@arrow.com;Maha.ABBAZI@arrow.com&subject=PO%20'+getPO('po-send')+'&body=Hello%20Team,%0D%0A%0D%0AAttached%20you%20will%20find%20our%20purchase%20order%20with%20reference%20number%20'+getPO('po-send')+'%0D%0A%0D%0ASend%20estimated%20delivery%20dates%20and%20confirmation%20of%20delivery%20to%20belux.licence.ecs.be@arrow.com%0D%0A%0D%0AKind%20regards,'">
 Riverbed Belux
 </a>
 
-<a class="po-button" onclick="window.location.href='mailto:renewals-emea@riverbed.com;Michelle.Strange@riverbed.com?cc=license.ecs.nl@arrow.com;Sandro.deBoer@arrow.com;Maha.ABBAZI@arrow.com&subject=PO&body=Hello Team,%0D%0A%0D%0AAttached you will find our purchase order with reference number%0D%0A%0D%0ASend estimated delivery dates and confirmation of delivery to license.ecs.nl@arrow.com%0D%0A%0D%0AKind regards,'">
+<a class="po-button"
+onclick="window.location.href='mailto:renewals-emea@riverbed.com;Michelle.Strange@riverbed.com?cc=license.ecs.nl@arrow.com;Sandro.deBoer@arrow.com;Maha.ABBAZI@arrow.com&subject=PO%20'+getPO('po-send')+'&body=Hello%20Team,%0D%0A%0D%0AAttached%20you%20will%20find%20our%20purchase%20order%20with%20reference%20number%20'+getPO('po-send')+'%0D%0A%0D%0ASend%20estimated%20delivery%20dates%20and%20confirmation%20of%20delivery%20to%20license.ecs.nl@arrow.com%0D%0A%0D%0AKind%20regards,'">
 Riverbed NL
 </a>
 
 </div>
 
+
 <!-- Snyk / Splunk -->
 <div class="button-group">
 
-<a class="po-button" onclick="window.location.href='mailto:accounts-receivable@snyk.io;henry.thorpe-millar@snyk.io;georgiana.petruse@snyk.io;aidan.ripochehayes@snyk.io?cc=belux.licence.ecs.be@arrow.com;Maha.ABBAZI@arrow.com&subject=PO&body=Hello Team,%0D%0A%0D%0AAttached you will find our purchase order with reference number%0D%0A%0D%0ASend estimated delivery dates and confirmation of delivery to belux.licence.ecs.be@arrow.com%0D%0A%0D%0AKind regards,'">
+<a class="po-button"
+onclick="window.location.href='mailto:accounts-receivable@snyk.io;henry.thorpe-millar@snyk.io;georgiana.petruse@snyk.io;aidan.ripochehayes@snyk.io?cc=belux.licence.ecs.be@arrow.com;Maha.ABBAZI@arrow.com&subject=PO%20'+getPO('po-send')+'&body=Hello%20Team,%0D%0A%0D%0AAttached%20you%20will%20find%20our%20purchase%20order%20with%20reference%20number%20'+getPO('po-send')+'%0D%0A%0D%0ASend%20estimated%20delivery%20dates%20and%20confirmation%20of%20delivery%20to%20belux.licence.ecs.be@arrow.com%0D%0A%0D%0AKind%20regards,'">
 Snyk Belux
 </a>
 
-<a class="po-button" onclick="window.location.href='mailto:accounts-receivable@snyk.io;henry.thorpe-millar@snyk.io;georgiana.petruse@snyk.io;aidan.ripochehayes@snyk.io?cc=license.ecs.nl@arrow.com;Maha.ABBAZI@arrow.com&subject=PO&body=Hello Team,%0D%0A%0D%0AAttached you will find our purchase order with reference number%0D%0A%0D%0ASend estimated delivery dates and confirmation of delivery to license.ecs.nl@arrow.com%0D%0A%0D%0AKind regards,'">
+<a class="po-button"
+onclick="window.location.href='mailto:accounts-receivable@snyk.io;henry.thorpe-millar@snyk.io;georgiana.petruse@snyk.io;aidan.ripochehayes@snyk.io?cc=license.ecs.nl@arrow.com;Maha.ABBAZI@arrow.com&subject=PO%20'+getPO('po-send')+'&body=Hello%20Team,%0D%0A%0D%0AAttached%20you%20will%20find%20our%20purchase%20order%20with%20reference%20number%20'+getPO('po-send')+'%0D%0A%0D%0ASend%20estimated%20delivery%20dates%20and%20confirmation%20of%20delivery%20to%20license.ecs.nl@arrow.com%0D%0A%0D%0AKind%20regards,'">
 Snyk NL
 </a>
 
-<a class="po-button" onclick="window.location.href='mailto:fkhan@splunk.com;mklepper@splunk.com;kadamczukbenatigue@splunk.com;lvdlugt@splunk.com;mdeknegt@splunk.com?cc=belux.licence.ecs.be@arrow.com;marco.weijers@arrow.com;emilie.depauw@arrow.com;Maha.ABBAZI@arrow.com&subject=PO&body=Hello Team,%0D%0A%0D%0AAttached you will find our purchase order with reference number%0D%0A%0D%0ASend estimated delivery dates and confirmation of delivery to belux.licence.ecs.be@arrow.com%0D%0A%0D%0AKind regards,'">
+<a class="po-button"
+onclick="window.location.href='mailto:fkhan@splunk.com;mklepper@splunk.com;kadamczukbenatigue@splunk.com;lvdlugt@splunk.com;mdeknegt@splunk.com?cc=belux.licence.ecs.be@arrow.com;marco.weijers@arrow.com;emilie.depauw@arrow.com;Maha.ABBAZI@arrow.com&subject=PO%20'+getPO('po-send')+'&body=Hello%20Team,%0D%0A%0D%0AAttached%20you%20will%20find%20our%20purchase%20order%20with%20reference%20number%20'+getPO('po-send')+'%0D%0A%0D%0ASend%20estimated%20delivery%20dates%20and%20confirmation%20of%20delivery%20to%20belux.licence.ecs.be@arrow.com%0D%0A%0D%0AKind%20regards,'">
 Splunk Belux
 </a>
 
-<a class="po-button" onclick="window.location.href='mailto:fkhan@splunk.com;mklepper@splunk.com;kadamczukbenatigue@splunk.com;lvdlugt@splunk.com;mdeknegt@splunk.com?cc=license.ecs.nl@arrow.com;marco.weijers@arrow.com;Maha.ABBAZI@arrow.com&subject=PO&body=Hello Team,%0D%0A%0D%0AAttached you will find our purchase order with reference number%0D%0A%0D%0ASend estimated delivery dates and confirmation of delivery to license.ecs.nl@arrow.com%0D%0A%0D%0AKind regards,'">
+<a class="po-button"
+onclick="window.location.href='mailto:fkhan@splunk.com;mklepper@splunk.com;kadamczukbenatigue@splunk.com;lvdlugt@splunk.com;mdeknegt@splunk.com?cc=license.ecs.nl@arrow.com;marco.weijers@arrow.com;Maha.ABBAZI@arrow.com&subject=PO%20'+getPO('po-send')+'&body=Hello%20Team,%0D%0A%0D%0AAttached%20you%20will%20find%20our%20purchase%20order%20with%20reference%20number%20'+getPO('po-send')+'%0D%0A%0D%0ASend%20estimated%20delivery%20dates%20and%20confirmation%20of%20delivery%20to%20license.ecs.nl@arrow.com%0D%0A%0D%0AKind%20regards,'">
 Splunk NL
 </a>
 
@@ -462,79 +576,26 @@ Splunk NL
 <div class="button-group">
 
 <a class="po-button" 
-onclick="window.location.href='mailto:epo@supermicro.com,levig@supermicro.com?cc=belux.licence.ecs.be@arrow.com;TiestS@supermicro.com;carmenlinaM@supermicro.com;gizemk@supermicro.com;Maha.ABBAZI@arrow.com&subject=PO&body=Hello%20Team,%0D%0A%0D%0AAttached%20you%20will%20find%20our%20purchase%20order%20with%20reference%20number%0D%0A%0D%0ASend%20estimated%20delivery%20dates%20and%20confirmation%20of%20delivery%20to%20belux.licence.ecs.be@arrow.com%0D%0A%0D%0AKind%20regards,'">
+onclick="window.location.href='mailto:epo@supermicro.com,levig@supermicro.com?cc=belux.licence.ecs.be@arrow.com;TiestS@supermicro.com;carmenlinaM@supermicro.com;gizemk@supermicro.com;Maha.ABBAZI@arrow.com&subject=PO%20'+getPO('po-send')+'&body=Hello%20Team,%0D%0A%0D%0AAttached%20you%20will%20find%20our%20purchase%20order%20with%20reference%20number%20'+getPO('po-send')+'%0D%0A%0D%0ASend%20estimated%20delivery%20dates%20and%20confirmation%20of%20delivery%20to%20belux.licence.ecs.be@arrow.com%0D%0A%0D%0AKind%20regards,'">
 Supermicro Belux
 </a>
 
 <a class="po-button" 
-onclick="window.location.href='mailto:epo@supermicro.com;levig@supermicro.com?cc=license.ecs.nl@arrow.com;TiestS@supermicro.com;carmenlinaM@supermicro.com;gizemk@supermicro.com;Maha.ABBAZI@arrow.com&subject=PO&body=Hello%20Team,%0D%0A%0D%0AAttached%20you%20will%20find%20our%20purchase%20order%20with%20reference%20number%0D%0A%0D%0ASend%20estimated%20delivery%20dates%20and%20confirmation%20of%20delivery%20to%20license.ecs.nl@arrow.com%0D%0A%0D%0AKind%20regards,'">
+onclick="window.location.href='mailto:epo@supermicro.com;levig@supermicro.com?cc=license.ecs.nl@arrow.com;TiestS@supermicro.com;carmenlinaM@supermicro.com;gizemk@supermicro.com;Maha.ABBAZI@arrow.com&subject=PO%20'+getPO('po-send')+'&body=Hello%20Team,%0D%0A%0D%0AAttached%20you%20will%20find%20our%20purchase%20order%20with%20reference%20number%20'+getPO('po-send')+'%0D%0A%0D%0ASend%20estimated%20delivery%20dates%20and%20confirmation%20of%20delivery%20to%20license.ecs.nl@arrow.com%0D%0A%0D%0AKind%20regards,'">
 Supermicro NL
 </a>
 
 <a class="po-button"
-onclick="window.location.href='mailto:sales-enterprisesw1.ecs.de@arrow.com;Nicolas.Wegmann@arrow.com?cc=license.ecs.nl@arrow.com;Maha.ABBAZI@arrow.com&subject=PO&body=Hello%20Team,%0D%0A%0D%0AAttached%20you%20will%20find%20our%20purchase%20order%20with%20reference%20number%0D%0A%0D%0ASend%20estimated%20delivery%20dates%20and%20confirmation%20of%20delivery%20to%20license.ecs.nl@arrow.com%0D%0A%0D%0AKind%20regards,'">
+onclick="window.location.href='mailto:sales-enterprisesw1.ecs.de@arrow.com;Nicolas.Wegmann@arrow.com?cc=license.ecs.nl@arrow.com;Maha.ABBAZI@arrow.com&subject=PO%20'+getPO('po-send')+'&body=Hello%20Team,%0D%0A%0D%0AAttached%20you%20will%20find%20our%20purchase%20order%20with%20reference%20number%20'+getPO('po-send')+'%0D%0A%0D%0ASend%20estimated%20delivery%20dates%20and%20confirmation%20of%20delivery%20to%20license.ecs.nl@arrow.com%0D%0A%0D%0AKind%20regards,'">
 Terdici
 </a>
 
 <a class="po-button"
-onclick="window.location.href='mailto:victoralexander.a@flex.com;mick.creagh@flex.com;ie.crkcohesityordermanagement@flex.com?cc=belux.licence.ecs.be@arrow.com;michelle.casolary@flex.com;mohan.n@flex.com;Fabrice.LESAGE@arrow.com;Maha.ABBAZI@arrow.com&subject=PO&body=Hello%20Team,%0D%0A%0D%0AAttached%20you%20will%20find%20our%20purchase%20order%20with%20reference%20number%20%0D%0A%0D%0AThis%20is%20linked%20with%20purchase%20order%20PO?%20sent%20to%20Cohesity%20for%20the%20SW%20lines%20with%20the%20quote%20Q?%0D%0A%0D%0ASend%20estimated%20delivery%20dates%20and%20confirmation%20of%20delivery%20to%20belux.licence.ecs.be@arrow.com%0D%0A%0D%0AKind%20regards,'">
+onclick="window.location.href='mailto:victoralexander.a@flex.com;mick.creagh@flex.com;ie.crkcohesityordermanagement@flex.com?cc=belux.licence.ecs.be@arrow.com;michelle.casolary@flex.com;mohan.n@flex.com;Fabrice.LESAGE@arrow.com;Maha.ABBAZI@arrow.com&subject=PO%20'+getPO('po-send')+'&body=Hello%20Team,%0D%0A%0D%0AAttached%20you%20will%20find%20our%20purchase%20order%20with%20reference%20number%20'+getPO('po-send')+'%0D%0A%0D%0AThis%20is%20linked%20with%20purchase%20order%20PO%20'+getPO('po-send')+'%20sent%20to%20Cohesity%20for%20the%20SW%20lines.%0D%0A%0D%0ASend%20estimated%20delivery%20dates%20and%20confirmation%20of%20delivery%20to%20belux.licence.ecs.be@arrow.com%0D%0A%0D%0AKind%20regards,'">
 Flextronics
 </a>
 
 </div>
-
-</div>
-
-
-<!-- Chase Delivery Section -->
-<div class="section" id="chase-delivery">
-<h2>Chase Delivery</h2>
-
-<div class="buttons-container" style="display:flex; flex-wrap:wrap; justify-content:center; gap:10px; margin-bottom:20px;">
-
-<a class="po-button" style="min-width:220px; max-width:250px; flex:1; text-align:center;"
-href="mailto:bas.strauss@arctera.io;anastasiya.wynne@arctera.io;ordermanagement@arctera.io?cc=customersupport@arctera.io;Maha.ABBAZI@arrow.com&subject=Follow up PO&body=Hello%20Team,%0A%0AWe%20have%20not%20received%20delivery%20of%20the%20order%20submitted%20with%20PO%20%0A%0ACould%20you%20please%20give%20us%20an%20update%20on%20this.%0A%0AKind%20regards,">
-Arctera
-</a>
-
-<a class="po-button" style="min-width:220px; max-width:250px; flex:1; text-align:center;"
-href="mailto:paul.goede@cohesity.com;fernando.tavares@cohesity.com;jan.vleminckx@cohesity.com?cc=orders@cohesity.com;Maha.ABBAZI@arrow.com&subject=Follow up PO&body=Hello%20Team,%0D%0A%0D%0AWe%20have%20not%20received%20delivery%20of%20the%20order%20submitted%20with%20PO%20%0D%0A%0D%0ACould%20you%20please%20give%20us%20an%20update%20on%20this.%0D%0A%0D%0AKind%20regards,">
-Cohesity
-</a>
-
-<a class="po-button" style="min-width:220px; max-width:250px; flex:1; text-align:center;"
-href="mailto:mkerasoviti@fortinet.com;orders@fortinet.com;cfields@fortinet.com?cc=reportfortinet.ecs.nl@arrow.com;Maha.ABBAZI@arrow.com&subject=Follow up PO&body=Hello%20Team,%0D%0A%0D%0ACould%20you%20please%20give%20us%20an%20update%20on%20the%20status%20of%20this%20order%20PO?%0D%0A%0D%0AThanks%20in%20advance.%0D%0A%0D%0AKind%20regards,">
-Fortinet
-</a>
-
-<a class="po-button" style="min-width:220px; max-width:250px; flex:1; text-align:center;"
-href="mailto:shraddha.kamate2@veritas.com;Sciona.Loughran@veritas.com;marie.baffet@veritas.com?cc=Maha.ABBAZI@arrow.com&subject=Follow up PO&body=Hello%20Team,%0D%0A%0D%0AWe%20have%20not%20received%20delivery%20of%20the%20order%20submitted%20with%20PO%20%0D%0A%0D%0ACould%20you%20please%20give%20us%20an%20update%20on%20this.%0D%0A%0D%0AKind%20regards,">
-Veritas
-</a>
-
-<a class="po-button" style="min-width:220px; max-width:250px; flex:1; text-align:center;"
-href="mailto:ask.esa.emea@sk.ibm.com?cc=Aya.TAMIM@arrow.com ; Maha.ABBAZI@arrow.com&subject=Follow up / PO / Vendor ref&body=Hello Team,%0D%0A%0D%0AI am reaching out to follow up, as we have not received the POE for order%0D%0A%0D%0ACould you please check and share it with us ?%0D%0A%0D%0AKind regards,">
-IBM ESA
-</a>
-
-<a class="po-button" style="min-width:220px; max-width:250px; flex:1; text-align:center;"
-href="mailto:SPPEMEA@ie.ibm.com?cc=Aya.TAMIM@arrow.com ; Maha.ABBAZI@arrow.com&subject=Follow up / PO / Vendor ref&body=Hello Team,%0D%0A%0D%0AI am reaching out to follow up, as we have not received the POE for order%0D%0A%0D%0ACould you please check and share it with us ?%0D%0A%0D%0AKind regards,">
-IBM SPP
-</a>
-
-</div>
-
-<div class="buttons-container" style="display:flex; flex-wrap:wrap; justify-content:center; gap:10px;">
-
-<a class="po-button" style="min-width:220px; max-width:250px; flex:1; text-align:center;"
-href="mailto:dswom.benelux@ie.ibm.com ; Zuzana.Roedolf@ibm.com ; dina.boschmans@be.ibm.com ; darina.stelbasska@sk.ibm.com?cc=Aya.TAMIM@arrow.com ; Maha.ABBAZI@arrow.com&subject=IBM PA PO / Special bid number&body=Hello Team,%0D%0A%0D%0AI am reaching out to follow up, as we have not received the POE for order%0D%0A%0D%0ACould you please check and share it with us ?%0D%0A%0D%0AKind regards,">
-IBM PA Belux
-</a>
-
-<a class="po-button" style="min-width:220px; max-width:250px; flex:1; text-align:center;"
-href="mailto:dswom.benelux@ie.ibm.com ; Zuzana.Roedolf@ibm.com ; dina.boschmans@be.ibm.com ; darina.stelbasska@sk.ibm.com?cc=Aya.TAMIM@arrow.com ; Maha.ABBAZI@arrow.com&subject=IBM PA PO / Special bid number&body=Hello Team,%0D%0A%0D%0AI am reaching out to follow up, as we have not received the POE for order%0D%0A%0D%0ACould you please check and share it with us ?%0D%0A%0D%0AKind regards,">
-IBM PA NL
-</a>
 
 </div>
 
@@ -543,10 +604,10 @@ IBM PA NL
 
 <!-- Links Section -->
 <div class="section" id="links" style="padding:20px;border:1px solid #ccc;border-radius:10px;margin:0 auto 30px auto;max-width:900px;">
-<h2 style="text-align:left;color:#007BFF;">Links</h2>
+
+<h2 style="text-align:left;color:#007BFF;">Links - Portals</h2>
 
 <div class="buttons-container" style="display:flex;flex-wrap:wrap;justify-content:center;gap:10px;">
-
 
 <!-- CARD -->
 <div class="link-card">
@@ -564,7 +625,6 @@ fabrice.lesage@arrow.com
 </div>
 </div>
 
-
 <!-- CARD -->
 <div class="link-card">
 <a class="po-button" href="https://pan.bitdefender.com/" target="_blank">Bitdefender</a>
@@ -580,7 +640,6 @@ license.ecs.nl@arrow.com
 <span class="material-icons eye-btn" onclick="togglePwd('pwd_bitdef',this)">visibility</span>
 </div>
 </div>
-
 
 <!-- CARD -->
 <div class="link-card">
@@ -598,7 +657,6 @@ customer-services.ecs.nl@arrow.com
 </div>
 </div>
 
-
 <!-- CARD -->
 <div class="link-card">
 <a class="po-button" href="https://partnerstore.oracle.com/apex/f?p=pstore:home:0:::::&tz=1:00" target="_blank">Oracle</a>
@@ -615,7 +673,6 @@ belux.licence.ecs.be@arrow.com
 </div>
 </div>
 
-
 <!-- SIMPLE LINKS -->
 
 <div class="link-card">
@@ -625,7 +682,6 @@ belux.licence.ecs.be@arrow.com
 <div class="link-card">
 <a class="po-button" href="https://ibm-services-q2c.lightning.force.com/lightning/page/home" target="_blank">IBM SERV NL</a>
 </div>
-
 
 <!-- IBM Invoices -->
 
@@ -644,9 +700,8 @@ anne-michele.schoepp@arrow.com
 </div>
 </div>
 
-
 <div class="link-card">
-<a class="po-button" href="https://www-112.ibm.com/software/howtobuy/passportadvantage/paoreseller/" target="_blank">IBM SOFT PA</a>
+<a class="po-button" href="https://www-112.ibm.com/software/howtobuy/passportadvantage/paoreseller/Login" target="_blank">IBM SOFT PA</a>
 </div>
 
 <div class="link-card">
@@ -656,6 +711,74 @@ anne-michele.schoepp@arrow.com
 </div>
 </div>
 
+<!-- Chase Delivery Section -->
+<div class="section" id="chase-delivery" style="max-width:900px;margin:0 auto 30px auto;">
+<div class="section-header">
+<h2>Chase Delivery</h2>
+
+<input 
+id="po-chase"
+class="po-input"
+placeholder="Enter PO">
+</div>
+
+<div class="buttons-container" style="
+display:grid;
+grid-template-columns:repeat(3,1fr);
+gap:12px;
+max-width:750px;
+margin:auto;
+">
+
+<a class="po-button"
+onclick="window.location.href='mailto:bas.strauss@arctera.io;anastasiya.wynne@arctera.io;ordermanagement@arctera.io?cc=customersupport@arctera.io;Maha.ABBAZI@arrow.com&subject=Follow%20up%20PO%20'+getPO('po-chase')+'&body=Hello%20Team,%0A%0AWe%20have%20not%20received%20delivery%20of%20the%20order%20submitted%20with%20PO%20'+getPO('po-chase')+'%0A%0ACould%20you%20please%20give%20us%20an%20update%20on%20this.%0A%0AKind%20regards,'">
+Arctera
+</a>
+
+<a class="po-button"
+onclick="window.location.href='mailto:paul.goede@cohesity.com;fernando.tavares@cohesity.com;jan.vleminckx@cohesity.com?cc=orders@cohesity.com;Maha.ABBAZI@arrow.com&subject=Follow%20up%20PO%20'+getPO('po-chase')+'&body=Hello%20Team,%0A%0AWe%20have%20not%20received%20delivery%20of%20the%20order%20submitted%20with%20PO%20'+getPO('po-chase')+'%0A%0ACould%20you%20please%20give%20us%20an%20update%20on%20this.%0A%0AKind%20regards,'">
+Cohesity
+</a>
+
+<a class="po-button"
+onclick="window.location.href='mailto:sas_caseupdates@checkpoint.com;sanderd@checkpoint.com;jasperv@checkpoint.com;shaik@checkpoint.com;bmol@checkpoint.com?cc=Maha.ABBAZI@arrow.com&subject=Follow%20up%20PO%20'+getPO('po-chase')+'&body=Hello%20Team,%0A%0AWe%20have%20not%20received%20delivery%20of%20this%20order%20PO%20'+getPO('po-chase')+'%0A%0ACould%20you%20please%20give%20us%20an%20update%20on%20this.%0A%0AKind%20regards,'">
+CheckPoint
+</a>
+
+<a class="po-button"
+onclick="window.location.href='mailto:mkerasoviti@fortinet.com;orders@fortinet.com;cfields@fortinet.com?cc=reportfortinet.ecs.nl@arrow.com;Maha.ABBAZI@arrow.com&subject=Follow%20up%20PO%20'+getPO('po-chase')+'&body=Hello%20Team,%0A%0ACould%20you%20please%20give%20us%20an%20update%20on%20the%20status%20of%20this%20order%20PO%20'+getPO('po-chase')+'%0A%0AThanks%20in%20advance.%0A%0AKind%20regards,'">
+Fortinet
+</a>
+
+<a class="po-button"
+onclick="window.location.href='mailto:shraddha.kamate2@veritas.com;Sciona.Loughran@veritas.com;marie.baffet@veritas.com?cc=Maha.ABBAZI@arrow.com&subject=Follow%20up%20PO%20'+getPO('po-chase')+'&body=Hello%20Team,%0A%0AWe%20have%20not%20received%20delivery%20of%20the%20order%20submitted%20with%20PO%20'+getPO('po-chase')+'%0A%0ACould%20you%20please%20give%20us%20an%20update%20on%20this.%0A%0AKind%20regards,'">
+Veritas
+</a>
+
+<a class="po-button"
+onclick="window.location.href='mailto:ask.esa.emea@sk.ibm.com?cc=Aya.TAMIM@arrow.com;Maha.ABBAZI@arrow.com&subject=Follow%20up%20PO%20'+getPO('po-chase')+'&body=Hello%20Team,%0A%0AI%20am%20reaching%20out%20to%20follow%20up%20for%20PO%20'+getPO('po-chase')+'%0A%0ACould%20you%20please%20check%20and%20share%20the%20POE%20with%20us%3F%0A%0AKind%20regards,'">
+IBM ESA
+</a>
+
+<a class="po-button"
+onclick="window.location.href='mailto:SPPEMEA@ie.ibm.com?cc=Aya.TAMIM@arrow.com;Maha.ABBAZI@arrow.com&subject=Follow%20up%20PO%20'+getPO('po-chase')+'&body=Hello%20Team,%0A%0AI%20am%20reaching%20out%20to%20follow%20up%20for%20PO%20'+getPO('po-chase')+'%0A%0ACould%20you%20please%20check%20and%20share%20the%20POE%20with%20us%3F%0A%0AKind%20regards,'">
+IBM SPP
+</a>
+
+<a class="po-button"
+onclick="window.location.href='mailto:dswom.benelux@ie.ibm.com;Zuzana.Roedolf@ibm.com;dina.boschmans@be.ibm.com;darina.stelbasska@sk.ibm.com?cc=Aya.TAMIM@arrow.com;Maha.ABBAZI@arrow.com&subject=IBM%20PA%20PO%20'+getPO('po-chase')+'&body=Hello%20Team,%0A%0AI%20am%20reaching%20out%20to%20follow%20up%20for%20PO%20'+getPO('po-chase')+'%0A%0ACould%20you%20please%20check%20and%20share%20the%20POE%20with%20us%3F%0A%0AKind%20regards,'">
+IBM PA Belux
+</a>
+
+<a class="po-button"
+onclick="window.location.href='mailto:dswom.benelux@ie.ibm.com;Zuzana.Roedolf@ibm.com;dina.boschmans@be.ibm.com;darina.stelbasska@sk.ibm.com?cc=Aya.TAMIM@arrow.com;Maha.ABBAZI@arrow.com&subject=IBM%20PA%20PO%20'+getPO('po-chase')+'&body=Hello%20Team,%0A%0AI%20am%20reaching%20out%20to%20follow%20up%20for%20PO%20'+getPO('po-chase')+'%0A%0ACould%20you%20please%20check%20and%20share%20the%20POE%20with%20us%3F%0A%0AKind%20regards,'">
+IBM PA NL
+</a>
+
+</div>
+</div>
+
+</div>
 
 <style>
 
@@ -743,5 +866,4 @@ eye.innerText="visibility";
 }
 
 </script>
-
 
