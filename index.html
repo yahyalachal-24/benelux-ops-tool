@@ -373,19 +373,21 @@ placeholder="Enter PO">
 <div class="button-group">
 
 <a class="po-button"
-onclick="sendEmail({
-  to: ['yahia.lachal@arrow.com'],
-  cc: [],
-  subject: buildSubject('po-send'),
-  body: `Hello Team,
+onclick="
+let po = getPO('po-send').trim();
+let subject = po ? 'PO ' + po : '';
 
-Attached you will find our purchase order with reference number ${getPO('po-send')}
-
-Please refer to special instructions at the bottom of our PO.
-
-Kind regards,`
-})">
-Better Collab Belux (TEST)
+window.location.href =
+'mailto:yahia.lachal@arrow.com' +
+'?subject=' + encodeURIComponent(subject) +
+'&body=' + encodeURIComponent(
+'Hello Team,\n\n' +
+'Attached you will find our purchase order with reference number ' + po + '\n\n' +
+'Please refer to special instructions at the bottom of our PO.\n\n' +
+'Kind regards,'
+);
+">
+Better Collab Belux
 </a>
 
 <a class="po-button"
@@ -851,15 +853,21 @@ margin-left:4px;
 <script>
 
 function copyText(text,icon){
+
 navigator.clipboard.writeText(text);
+
 icon.innerText="check";
+
 setTimeout(()=>{
 icon.innerText="content_copy";
 },1200);
+
 }
 
 function togglePwd(id,eye){
+
 let el=document.getElementById(id);
+
 if(el.style.display==="none"||el.style.display===""){
 el.style.display="inline";
 eye.innerText="visibility_off";
@@ -867,28 +875,8 @@ eye.innerText="visibility_off";
 el.style.display="none";
 eye.innerText="visibility";
 }
-}
 
-/* ===== NOUVEAU CODE EMAIL API ===== */
-
-async function sendEmail(data) {
-  try {
-    const res = await fetch("/.netlify/functions/sendMail", {
-      method: "POST",
-      body: JSON.stringify(data)
-    });
-
-    const result = await res.json();
-    alert("Email envoyé ✅");
-  } catch (e) {
-    alert("Erreur envoi ❌");
-    console.error(e);
-  }
-}
-
-function buildSubject(poId) {
-  const po = getPO(poId).trim();
-  return po ? "PO " + po : "Order";
 }
 
 </script>
+
