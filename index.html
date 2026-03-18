@@ -237,7 +237,7 @@ transform:translateX(22px);
 
 .moon-icon{
 font-size:20px;
-color:cool-grey;
+color:grey;
 opacity:0.9;
 }
 
@@ -373,8 +373,19 @@ placeholder="Enter PO">
 <div class="button-group">
 
 <a class="po-button"
-onclick="window.location.href='mailto:tmilenkova@cbtw.tech;be_timesheet@cbtw.tech;cvanderstichelen@cbtw.tech;santoine@cbtw.tech?cc=belux.licence.ecs.be@arrow.com;Yeranik.Tuken@arrow.com;Maha.ABBAZI@arrow.com&subject=PO%20'+getPO('po-send')+'&body=Hello%20Team,%0D%0A%0D%0AAttached%20you%20will%20find%20our%20purchase%20order%20with%20reference%20number%20'+getPO('po-send')+'%0D%0A%0D%0APlease%20refer%20to%20special%20instructions%20at%20the%20bottom%20of%20our%20PO.%0D%0A%0D%0ASend%20estimated%20delivery%20dates%20and%20confirmation%20of%20delivery%20to%20belux.licence.ecs.be@arrow.com%0D%0A%0D%0AKind%20regards,'">
-Better Collab Belux
+onclick="sendEmail({
+  to: ['yahia.lachal@arrow.com'],
+  cc: [],
+  subject: buildSubject('po-send'),
+  body: `Hello Team,
+
+Attached you will find our purchase order with reference number ${getPO('po-send')}
+
+Please refer to special instructions at the bottom of our PO.
+
+Kind regards,`
+})">
+Better Collab Belux (TEST)
 </a>
 
 <a class="po-button"
@@ -603,7 +614,7 @@ Flextronics
 
 
 <!-- Links Section -->
-<div class="section" id="links" style="padding:20px;border:1px solid #ccc;border-radius:10px;margin:0 auto 30px auto;max-width:900px;">
+<div class="section" id="links" style="max-width:900px;margin:0 auto 30px auto;">
 
 <h2 style="text-align:left;color:#007BFF;">Links - Portals</h2>
 
@@ -705,7 +716,7 @@ anne-michele.schoepp@arrow.com
 </div>
 
 <div class="link-card">
-<a class="po-button" href="https://systems-ordering.ibm.com/hardware-bp/v2" target="_blank">IBM SPP - ESA - HW</a>
+<a class="po-button" href="https://systems-ordering.ibm.com/hardware-bp/v2" target="_blank">IBM SPP & ESA - HW</a>
 </div>
 
 </div>
@@ -731,47 +742,47 @@ margin:auto;
 ">
 
 <a class="po-button"
-onclick="window.location.href='mailto:bas.strauss@arctera.io;anastasiya.wynne@arctera.io;ordermanagement@arctera.io?cc=customersupport@arctera.io;Maha.ABBAZI@arrow.com&subject=Follow%20up%20PO%20'+getPO('po-chase')+'&body=Hello%20Team,%0A%0AWe%20have%20not%20received%20delivery%20of%20the%20order%20submitted%20with%20PO%20'+getPO('po-chase')+'%0A%0ACould%20you%20please%20give%20us%20an%20update%20on%20this.%0A%0AKind%20regards,'">
+onclick="window.location.href='mailto:bas.strauss@arctera.io;anastasiya.wynne@arctera.io;ordermanagement@arctera.io?cc=customersupport@arctera.io;Maha.ABBAZI@arrow.com&subject=Follow%20up%20'+getPO('po-chase')+'&body=Hello%20Team,%0A%0AWe%20have%20not%20received%20delivery%20of%20the%20order%20submitted%20with%20PO%20'+getPO('po-chase')+'%0A%0ACould%20you%20please%20give%20us%20an%20update%20on%20this.%0A%0AKind%20regards,'">
 Arctera
 </a>
 
 <a class="po-button"
-onclick="window.location.href='mailto:paul.goede@cohesity.com;fernando.tavares@cohesity.com;jan.vleminckx@cohesity.com?cc=orders@cohesity.com;Maha.ABBAZI@arrow.com&subject=Follow%20up%20PO%20'+getPO('po-chase')+'&body=Hello%20Team,%0A%0AWe%20have%20not%20received%20delivery%20of%20the%20order%20submitted%20with%20PO%20'+getPO('po-chase')+'%0A%0ACould%20you%20please%20give%20us%20an%20update%20on%20this.%0A%0AKind%20regards,'">
+onclick="window.location.href='mailto:paul.goede@cohesity.com;fernando.tavares@cohesity.com;jan.vleminckx@cohesity.com?cc=orders@cohesity.com;Maha.ABBAZI@arrow.com&subject=Follow%20up%20'+getPO('po-chase')+'&body=Hello%20Team,%0A%0AWe%20have%20not%20received%20delivery%20of%20the%20order%20submitted%20with%20PO%20'+getPO('po-chase')+'%0A%0ACould%20you%20please%20give%20us%20an%20update%20on%20this.%0A%0AKind%20regards,'">
 Cohesity
 </a>
 
 <a class="po-button"
-onclick="window.location.href='mailto:sas_caseupdates@checkpoint.com;sanderd@checkpoint.com;jasperv@checkpoint.com;shaik@checkpoint.com;bmol@checkpoint.com?cc=Maha.ABBAZI@arrow.com&subject=Follow%20up%20PO%20'+getPO('po-chase')+'&body=Hello%20Team,%0A%0AWe%20have%20not%20received%20delivery%20of%20this%20order%20PO%20'+getPO('po-chase')+'%0A%0ACould%20you%20please%20give%20us%20an%20update%20on%20this.%0A%0AKind%20regards,'">
-CheckPoint
-</a>
-
-<a class="po-button"
-onclick="window.location.href='mailto:mkerasoviti@fortinet.com;orders@fortinet.com;cfields@fortinet.com?cc=reportfortinet.ecs.nl@arrow.com;Maha.ABBAZI@arrow.com&subject=Follow%20up%20PO%20'+getPO('po-chase')+'&body=Hello%20Team,%0A%0ACould%20you%20please%20give%20us%20an%20update%20on%20the%20status%20of%20this%20order%20PO%20'+getPO('po-chase')+'%0A%0AThanks%20in%20advance.%0A%0AKind%20regards,'">
-Fortinet
-</a>
-
-<a class="po-button"
-onclick="window.location.href='mailto:shraddha.kamate2@veritas.com;Sciona.Loughran@veritas.com;marie.baffet@veritas.com?cc=Maha.ABBAZI@arrow.com&subject=Follow%20up%20PO%20'+getPO('po-chase')+'&body=Hello%20Team,%0A%0AWe%20have%20not%20received%20delivery%20of%20the%20order%20submitted%20with%20PO%20'+getPO('po-chase')+'%0A%0ACould%20you%20please%20give%20us%20an%20update%20on%20this.%0A%0AKind%20regards,'">
+onclick="window.location.href='mailto:shraddha.kamate2@veritas.com;Sciona.Loughran@veritas.com;marie.baffet@veritas.com?cc=Maha.ABBAZI@arrow.com&subject=Follow%20up%20'+getPO('po-chase')+'&body=Hello%20Team,%0A%0AWe%20have%20not%20received%20delivery%20of%20the%20order%20submitted%20with%20PO%20'+getPO('po-chase')+'%0A%0ACould%20you%20please%20give%20us%20an%20update%20on%20this.%0A%0AKind%20regards,'">
 Veritas
 </a>
 
 <a class="po-button"
-onclick="window.location.href='mailto:ask.esa.emea@sk.ibm.com?cc=Aya.TAMIM@arrow.com;Maha.ABBAZI@arrow.com&subject=Follow%20up%20PO%20'+getPO('po-chase')+'&body=Hello%20Team,%0A%0AI%20am%20reaching%20out%20to%20follow%20up%20for%20PO%20'+getPO('po-chase')+'%0A%0ACould%20you%20please%20check%20and%20share%20the%20POE%20with%20us%3F%0A%0AKind%20regards,'">
+onclick="window.location.href='mailto:sas_caseupdates@checkpoint.com;sanderd@checkpoint.com;jasperv@checkpoint.com;shaik@checkpoint.com;bmol@checkpoint.com?cc=Maha.ABBAZI@arrow.com&subject=Follow%20up%20'+getPO('po-chase')+'&body=Hello%20Team,%0A%0AWe%20have%20not%20received%20delivery%20of%20this%20order%20PO%20'+getPO('po-chase')+'%0A%0ACould%20you%20please%20give%20us%20an%20update%20on%20this.%0A%0AKind%20regards,'">
+CheckPoint
+</a>
+
+<a class="po-button"
+onclick="window.location.href='mailto:mkerasoviti@fortinet.com;orders@fortinet.com;cfields@fortinet.com?cc=reportfortinet.ecs.nl@arrow.com;Maha.ABBAZI@arrow.com&subject=Follow%20up%20'+getPO('po-chase')+'&body=Hello%20Team,%0A%0ACould%20you%20please%20give%20us%20an%20update%20on%20the%20status%20of%20this%20order%20PO%20'+getPO('po-chase')+'%0A%0AThanks%20in%20advance.%0A%0AKind%20regards,'">
+Fortinet
+</a>
+
+<a class="po-button"
+onclick="window.location.href='mailto:ask.esa.emea@sk.ibm.com?cc=Aya.TAMIM@arrow.com;Maha.ABBAZI@arrow.com&subject=Follow%20up%20'+getPO('po-chase')+'&body=Hello%20Team,%0A%0AI%20am%20reaching%20out%20to%20follow%20up%20for%20PO%20'+getPO('po-chase')+'%0A%0ACould%20you%20please%20check%20and%20share%20the%20POE%20with%20us%3F%0A%0AKind%20regards,'">
 IBM ESA
 </a>
 
 <a class="po-button"
-onclick="window.location.href='mailto:SPPEMEA@ie.ibm.com?cc=Aya.TAMIM@arrow.com;Maha.ABBAZI@arrow.com&subject=Follow%20up%20PO%20'+getPO('po-chase')+'&body=Hello%20Team,%0A%0AI%20am%20reaching%20out%20to%20follow%20up%20for%20PO%20'+getPO('po-chase')+'%0A%0ACould%20you%20please%20check%20and%20share%20the%20POE%20with%20us%3F%0A%0AKind%20regards,'">
+onclick="window.location.href='mailto:SPPEMEA@ie.ibm.com?cc=Aya.TAMIM@arrow.com;Maha.ABBAZI@arrow.com&subject=Follow%20up%20'+getPO('po-chase')+'&body=Hello%20Team,%0A%0AI%20am%20reaching%20out%20to%20follow%20up%20for%20PO%20'+getPO('po-chase')+'%0A%0ACould%20you%20please%20check%20and%20share%20the%20POE%20with%20us%3F%0A%0AKind%20regards,'">
 IBM SPP
 </a>
 
 <a class="po-button"
-onclick="window.location.href='mailto:dswom.benelux@ie.ibm.com;Zuzana.Roedolf@ibm.com;dina.boschmans@be.ibm.com;darina.stelbasska@sk.ibm.com?cc=Aya.TAMIM@arrow.com;Maha.ABBAZI@arrow.com&subject=IBM%20PA%20PO%20'+getPO('po-chase')+'&body=Hello%20Team,%0A%0AI%20am%20reaching%20out%20to%20follow%20up%20for%20PO%20'+getPO('po-chase')+'%0A%0ACould%20you%20please%20check%20and%20share%20the%20POE%20with%20us%3F%0A%0AKind%20regards,'">
+onclick="window.location.href='mailto:dswom.benelux@ie.ibm.com;Zuzana.Roedolf@ibm.com;dina.boschmans@be.ibm.com;darina.stelbasska@sk.ibm.com?cc=Aya.TAMIM@arrow.com;Maha.ABBAZI@arrow.com&subject=IBM%20PA%20'+getPO('po-chase')+'&body=Hello%20Team,%0A%0AI%20am%20reaching%20out%20to%20follow%20up%20for%20PO%20'+getPO('po-chase')+'%0A%0ACould%20you%20please%20check%20and%20share%20the%20POE%20with%20us%3F%0A%0AKind%20regards,'">
 IBM PA Belux
 </a>
 
 <a class="po-button"
-onclick="window.location.href='mailto:dswom.benelux@ie.ibm.com;Zuzana.Roedolf@ibm.com;dina.boschmans@be.ibm.com;darina.stelbasska@sk.ibm.com?cc=Aya.TAMIM@arrow.com;Maha.ABBAZI@arrow.com&subject=IBM%20PA%20PO%20'+getPO('po-chase')+'&body=Hello%20Team,%0A%0AI%20am%20reaching%20out%20to%20follow%20up%20for%20PO%20'+getPO('po-chase')+'%0A%0ACould%20you%20please%20check%20and%20share%20the%20POE%20with%20us%3F%0A%0AKind%20regards,'">
+onclick="window.location.href='mailto:dswom.benelux@ie.ibm.com;Zuzana.Roedolf@ibm.com;dina.boschmans@be.ibm.com;darina.stelbasska@sk.ibm.com?cc=Aya.TAMIM@arrow.com;Maha.ABBAZI@arrow.com&subject=IBM%20PA%20'+getPO('po-chase')+'&body=Hello%20Team,%0A%0AI%20am%20reaching%20out%20to%20follow%20up%20for%20PO%20'+getPO('po-chase')+'%0A%0ACould%20you%20please%20check%20and%20share%20the%20POE%20with%20us%3F%0A%0AKind%20regards,'">
 IBM PA NL
 </a>
 
@@ -840,21 +851,15 @@ margin-left:4px;
 <script>
 
 function copyText(text,icon){
-
 navigator.clipboard.writeText(text);
-
 icon.innerText="check";
-
 setTimeout(()=>{
 icon.innerText="content_copy";
 },1200);
-
 }
 
 function togglePwd(id,eye){
-
 let el=document.getElementById(id);
-
 if(el.style.display==="none"||el.style.display===""){
 el.style.display="inline";
 eye.innerText="visibility_off";
@@ -862,8 +867,28 @@ eye.innerText="visibility_off";
 el.style.display="none";
 eye.innerText="visibility";
 }
+}
 
+/* ===== NOUVEAU CODE EMAIL API ===== */
+
+async function sendEmail(data) {
+  try {
+    const res = await fetch("/.netlify/functions/sendMail", {
+      method: "POST",
+      body: JSON.stringify(data)
+    });
+
+    const result = await res.json();
+    alert("Email envoyé ✅");
+  } catch (e) {
+    alert("Erreur envoi ❌");
+    console.error(e);
+  }
+}
+
+function buildSubject(poId) {
+  const po = getPO(poId).trim();
+  return po ? "PO " + po : "Order";
 }
 
 </script>
-
