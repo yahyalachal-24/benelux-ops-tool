@@ -899,7 +899,7 @@ function getPO(id) {
   return document.getElementById(id).value.trim();
 }
 
-/* ===== MAIL FUNCTION ===== */
+/* ===== MAIL FUNCTION (FIXED) ===== */
 
 function sendMail(to, body) {
 
@@ -909,14 +909,12 @@ function sendMail(to, body) {
   let subject = '';
   let finalBody = body;
 
-  // ===== DETECTION AUTOMATIQUE =====
+  // 👉 PRIORITÉ AU CHASE (si rempli)
+  if (poChase) {
 
-  // SECTION CHASE DELIVERY
-  if (body.toLowerCase().includes('follow')) {
+    subject = "Follow up " + poChase;
 
-    subject = poChase ? "Follow up " + poChase : "Follow up";
-
-    // nettoyage body si PO vide
+    // nettoyage si jamais besoin
     if (!poChase) {
       finalBody = finalBody
         .replaceAll("PO%20undefined", "")
@@ -926,7 +924,6 @@ function sendMail(to, body) {
     }
 
   } 
-  // SECTION SEND PO
   else {
     subject = poSend ? poSend : "";
   }
